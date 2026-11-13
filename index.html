@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matha Sree Mandiram Charitable Society</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; color: #372314; background: #faf6f0; overflow-x: hidden; }
+
+    /* ===== CSS VARIABLES (Traditional Temple Palette matching Logo) ===== */
+    :root {
+      --maroon:       #800b14;
+      --maroon-dark:  #5c060d;
+      --gold-yellow:  #F4B41A;
+      --gold-deep:    #DA9100;
+      --gold-glow:    #FFE082;
+      --royal-blue:   #123C87;
+      --royal-dark:   #0B2559;
+      --pure-white:   #FFFFFF;
+      --sacred-ivory: #FFFDF8;
+      --warm-bg:      #FDF8EE;
+      --cream-card:   #FFFFFF;
+      --text-main:    #2A1608;
+      --text-muted:   #5C3D2E;
+      --shadow:       0 8px 30px rgba(128, 11, 20, 0.08);
+      --shadow-lg:    0 16px 48px rgba(18, 60, 135, 0.14);
+      --temple-border: 1px solid rgba(218, 145, 0, 0.35);
+    }
+
+    /* Traditional Indian temple subtle border & motif styling */
+    .temple-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .temple-divider::before, .temple-divider::after {
+      content: '';
+      flex: 1;
+      max-width: 140px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold-yellow));
+    }
+    .temple-divider::after {
+      background: linear-gradient(to left, transparent, var(--gold-yellow));
+    }
+    .temple-divider span {
+      color: var(--gold-yellow);
+      font-size: 1.3rem;
+    }
+
+    /* ===== TOP ANNOUNCEMENT BAR ===== */
+    .top-bar {
+      background: var(--royal-dark);
+      color: var(--gold-glow);
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 0.82rem;
+      letter-spacing: 1.2px;
+      border-bottom: 2px solid var(--gold-yellow);
+      font-weight: 600;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: linear-gradient(90deg, var(--maroon-dark) 0%, var(--maroon) 50%, var(--maroon-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 32px;
+      border-bottom: 3px solid var(--gold-yellow);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .nav-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .nav-logo-wrap img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold-yellow);
+      box-shadow: 0 0 12px rgba(244, 180, 26, 0.5);
+    }
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-title span:first-child {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--pure-white);
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+    }
+    .nav-title span:last-child {
+      font-size: 0.72rem;
+      color: var(--gold-yellow);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 8px;
+    }
+    .nav-links a {
+      color: var(--pure-white);
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      background: var(--gold-yellow);
+      color: var(--maroon-dark);
+      border-color: var(--gold-deep);
+      box-shadow: 0 2px 10px rgba(244, 180, 26, 0.4);
+    }
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 25%, #96121d 0%, #690a12 50%, #3e0409 100%);
+      border-bottom: 5px solid var(--gold-yellow);
+    }
+    /* Sacred Indian Temple Ray Pattern (matches the golden sunburst on the logo) */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 55% at 50% 40%, rgba(244, 180, 26, 0.22) 0%, transparent 75%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 0 L43 37 L80 40 L43 43 L40 80 L37 43 L0 40 L37 37 Z' fill='%23F4B41A' fill-opacity='0.08'/%3E%3Ccircle cx='40' cy='40' r='14' fill='none' stroke='%23F4B41A' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 650px; height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,180,26,0.22) 0%, rgba(18,60,135,0.12) 45%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+      50%        { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      padding: 36px 24px;
+    }
+    .hero-logo-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 26px;
+    }
+    .hero-logo-wrap::before,
+    .hero-logo-wrap::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(244, 180, 26, 0.45);
+      animation: spin-ring 14s linear infinite;
+    }
+    .hero-logo-wrap::before { inset: -16px; }
+    .hero-logo-wrap::after  { inset: -30px; border: 2px dashed rgba(244, 180, 26, 0.25); animation-direction: reverse; animation-duration: 20s; }
+    @keyframes spin-ring {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .hero-logo {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--gold-yellow);
+      box-shadow: 0 0 35px rgba(244, 180, 26, 0.6), 0 0 70px rgba(18, 60, 135, 0.35);
+      animation: logo-float 5s ease-in-out infinite;
+    }
+    @keyframes logo-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    .hero-om {
+      font-size: 2.6rem;
+      color: var(--gold-yellow);
+      margin-bottom: 8px;
+      display: block;
+      text-shadow: 0 0 25px rgba(244,180,26,0.7);
+    }
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.1rem, 5.2vw, 3.5rem);
+      font-weight: 900;
+      color: var(--pure-white);
+      line-height: 1.15;
+      text-shadow: 0 3px 18px rgba(0,0,0,0.6);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .hero h1 span { 
+      color: var(--gold-yellow); 
+      text-shadow: 0 0 20px rgba(244, 180, 26, 0.5);
+    }
+    .hero-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.95rem, 2.5vw, 1.3rem);
+      color: var(--gold-glow);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 18px 0;
+    }
+    .hero-divider::before, .hero-divider::after {
+      content: '';
+      flex: 1;
+      max-width: 130px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold-yellow));
+    }
+    .hero-divider::after { background: linear-gradient(to left, transparent, var(--gold-yellow)); }
+    .hero-divider span { color: var(--gold-yellow); font-size: 1.3rem; }
+    .hero-tagline {
+      font-size: 1.08rem;
+      color: rgba(255,255,255,0.92);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 28px;
+      line-height: 1.65;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 34px;
+    }
+    .hero-badge {
+      background: rgba(18, 60, 135, 0.45);
+      border: 1.5px solid var(--gold-yellow);
+      color: var(--gold-glow);
+      padding: 7px 20px;
+      border-radius: 24px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .hero-cta-wrap { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-yellow), var(--gold-deep));
+      color: var(--maroon-dark);
+      padding: 14px 38px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 0.96rem;
+      text-decoration: none;
+      letter-spacing: 0.6px;
+      box-shadow: 0 6px 24px rgba(244,180,26,0.45);
+      transition: all 0.25s ease;
+      border: 2px solid #FFE082;
+    }
+    .btn-primary:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 10px 32px rgba(244,180,26,0.6); 
+      background: linear-gradient(135deg, #FFE082, var(--gold-yellow));
+    }
+    .btn-outline {
+      background: rgba(18, 60, 135, 0.3);
+      border: 2px solid var(--gold-yellow);
+      color: var(--pure-white);
+      padding: 13px 34px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      text-decoration: none;
+      letter-spacing: 0.6px;
+      transition: all 0.25s ease;
+    }
+    .btn-outline:hover { 
+      background: var(--royal-blue); 
+      color: var(--pure-white);
+      border-color: #FFE082;
+      box-shadow: 0 6px 20px rgba(18,60,135,0.45);
+    }
+
+    /* ===== SCROLL INDICATOR ===== */
+    .scroll-down {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: bounce 2s infinite;
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .scroll-down svg { width: 24px; opacity: 0.7; }
+    @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 80px 24px; }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-label {
+      display: inline-block;
+      color: var(--maroon);
+      background: rgba(244, 180, 26, 0.15);
+      border: 1px solid var(--gold-deep);
+      padding: 5px 18px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4.2vw, 2.5rem);
+      color: var(--maroon);
+      margin-bottom: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .section-rule {
+      width: 80px; height: 3.5px;
+      background: linear-gradient(to right, var(--maroon), var(--gold-yellow), var(--royal-blue));
+      margin: 0 auto 16px;
+      border-radius: 2px;
+    }
+    .section-desc { color: var(--text-muted); max-width: 660px; margin: 0 auto; line-height: 1.85; font-size: 1.02rem; }
+
+    /* ===== ABOUT SECTION ===== */
+    #about { 
+      background: var(--sacred-ivory); 
+      border-bottom: 2px solid rgba(218, 145, 0, 0.2);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      align-items: center;
+    }
+    .about-logo-col { display: flex; justify-content: center; }
+    .about-logo-frame {
+      position: relative;
+      width: 290px; height: 290px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-logo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border: 3px solid var(--gold-yellow);
+      border-radius: 50%;
+      opacity: 0.8;
+      box-shadow: 0 0 20px rgba(244, 180, 26, 0.35);
+    }
+    .about-logo-frame::after {
+      content: '';
+      position: absolute;
+      inset: -26px;
+      border: 2px dashed var(--maroon);
+      border-radius: 50%;
+      opacity: 0.45;
+    }
+    .about-logo-frame img {
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--pure-white);
+      box-shadow: var(--shadow-lg);
+    }
+    .about-text h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
+      color: var(--maroon);
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+    .about-text p {
+      color: var(--text-main);
+      line-height: 1.85;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+    .about-info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 26px;
+    }
+    .info-card {
+      background: var(--pure-white);
+      border-left: 4px solid var(--maroon);
+      border-top: 1px solid rgba(218, 145, 0, 0.2);
+      border-right: 1px solid rgba(218, 145, 0, 0.2);
+      border-bottom: 1px solid rgba(218, 145, 0, 0.2);
+      padding: 16px 18px;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .info-card strong { 
+      display: block; 
+      color: var(--royal-blue); 
+      font-size: 0.78rem; 
+      letter-spacing: 1px; 
+      text-transform: uppercase; 
+      margin-bottom: 5px; 
+      font-weight: 800;
+    }
+    .info-card span { color: var(--text-main); font-size: 0.92rem; line-height: 1.5; }
+
+    /* ===== OBJECTIVES ===== */
+    #objectives { 
+      background: var(--warm-bg); 
+      border-bottom: 2px solid rgba(218, 145, 0, 0.2);
+    }
+    .obj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 28px;
+    }
+    .obj-card {
+      background: var(--pure-white);
+      border-radius: 16px;
+      padding: 34px 28px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--maroon);
+      border-right: 1px solid rgba(218, 145, 0, 0.25);
+      border-bottom: 1px solid rgba(218, 145, 0, 0.25);
+      border-left: 1px solid rgba(218, 145, 0, 0.25);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .obj-card:hover { 
+      transform: translateY(-6px); 
+      box-shadow: 0 14px 35px rgba(128, 11, 20, 0.15); 
+      border-top-color: var(--royal-blue);
+    }
+    .obj-icon {
+      width: 58px; height: 58px;
+      background: linear-gradient(135deg, var(--royal-blue), var(--royal-dark));
+      border: 2px solid var(--gold-yellow);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(18, 60, 135, 0.35);
+    }
+    .obj-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      color: var(--maroon);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .obj-card p { color: var(--text-muted); line-height: 1.75; font-size: 0.94rem; }
+
+    /* ===== ACTIVITIES SECTION ===== */
+    #activities { 
+      background: var(--sacred-ivory); 
+      border-bottom: 2px solid rgba(218, 145, 0, 0.2);
+    }
+    .activities-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .activity-item {
+      background: var(--pure-white);
+      border: 1.5px solid rgba(218, 145, 0, 0.35);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+      color: var(--text-main);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+      transition: all 0.25s ease;
+    }
+    .activity-item:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 12px 30px rgba(18, 60, 135, 0.12);
+      border-color: var(--royal-blue);
+    }
+    .activity-item .act-icon { 
+      font-size: 2.5rem; 
+      display: inline-block; 
+      margin-bottom: 14px; 
+      filter: drop-shadow(0 2px 6px rgba(244,180,26,0.3));
+    }
+    .activity-item h4 { 
+      font-family: 'Cinzel', serif; 
+      font-size: 1.08rem; 
+      color: var(--maroon); 
+      margin-bottom: 8px; 
+      font-weight: 700;
+    }
+    .activity-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ===== LEADERSHIP ===== */
+    #leadership { 
+      background: var(--warm-bg); 
+      border-bottom: 2px solid rgba(218, 145, 0, 0.2);
+    }
+    .leader-card {
+      max-width: 440px;
+      margin: 0 auto;
+      background: var(--pure-white);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--gold-yellow);
+      position: relative;
+      overflow: hidden;
+    }
+    .leader-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 7px;
+      background: linear-gradient(to right, var(--maroon), var(--gold-yellow), var(--royal-blue), var(--gold-yellow), var(--maroon));
+    }
+    .leader-avatar {
+      width: 104px; height: 104px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--royal-blue), var(--royal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6rem;
+      color: var(--pure-white);
+      margin: 0 auto 20px;
+      border: 4px solid var(--gold-yellow);
+      box-shadow: 0 4px 20px rgba(18, 60, 135, 0.35);
+    }
+    .leader-role {
+      display: inline-block;
+      background: var(--maroon);
+      color: var(--gold-glow);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 6px 20px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      border: 1px solid var(--gold-yellow);
+    }
+    .leader-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      color: var(--maroon);
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+    .leader-parent { color: var(--royal-blue); font-size: 0.92rem; margin-bottom: 20px; font-weight: 600; }
+    .leader-address {
+      background: var(--sacred-ivory);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1.5px solid rgba(218, 145, 0, 0.3);
+      text-align: left;
+    }
+    .leader-address strong { 
+      display: block; 
+      color: var(--maroon); 
+      font-size: 0.74rem; 
+      letter-spacing: 1.5px; 
+      text-transform: uppercase; 
+      margin-bottom: 6px; 
+      font-weight: 800;
+    }
+    .leader-address p { color: var(--text-main); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ===== CERTIFICATES ===== */
+    #certificates { 
+      background: var(--sacred-ivory); 
+      border-bottom: 2px solid rgba(218, 145, 0, 0.2);
+    }
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+    .cert-item {
+      background: var(--pure-white);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+      border-left: 5px solid var(--royal-blue);
+      border-top: 1px solid rgba(218, 145, 0, 0.2);
+      border-right: 1px solid rgba(218, 145, 0, 0.2);
+      border-bottom: 1px solid rgba(218, 145, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+    .cert-item:hover { 
+      transform: translateX(4px); 
+      box-shadow: var(--shadow); 
+      border-left-color: var(--gold-yellow);
+    }
+    .cert-check {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold-yellow), var(--gold-deep));
+      color: var(--maroon-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+      box-shadow: 0 3px 12px rgba(244,180,26,0.4);
+      border: 1px solid var(--gold-glow);
+    }
+    .cert-item p { color: var(--text-main); line-height: 1.7; font-size: 0.94rem; }
+
+    /* ===== DONATION BANNER ===== */
+    .donation-banner {
+      background: linear-gradient(135deg, var(--maroon) 0%, #a01520 50%, var(--royal-blue) 100%);
+      border-top: 3px solid var(--gold-yellow);
+      border-bottom: 3px solid var(--gold-yellow);
+      padding: 60px 24px;
+      text-align: center;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.3);
+    }
+    .donation-banner h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      color: var(--gold-yellow);
+      margin-bottom: 14px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      font-weight: 800;
+    }
+    .donation-banner p { color: rgba(255,255,255,0.95); max-width: 580px; margin: 0 auto 30px; line-height: 1.75; font-size: 1.05rem; }
+    .btn-donate {
+      background: var(--gold-yellow);
+      color: var(--maroon-dark);
+      padding: 15px 46px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+      border: 2px solid #FFE082;
+      transition: all 0.25s ease;
+    }
+    .btn-donate:hover { 
+      transform: translateY(-3px); 
+      background: #FFE082; 
+      box-shadow: 0 10px 35px rgba(244,180,26,0.6); 
+    }
+
+    /* ===== CONTACT ===== */
+    #contact { 
+      background: linear-gradient(135deg, #180306 0%, #2f060a 45%, #0B2559 100%); 
+      border-top: 3px solid var(--gold-yellow);
+    }
+    #contact .section-label { 
+      color: var(--gold-yellow); 
+      background: rgba(244, 180, 26, 0.15); 
+      border-color: var(--gold-yellow);
+    }
+    #contact .section-title { color: var(--pure-white); }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      margin-top: 24px;
+    }
+    .contact-info { color: rgba(255,255,255,0.9); }
+    .contact-info h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-yellow);
+      margin-bottom: 26px;
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .contact-detail {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+      align-items: flex-start;
+    }
+    .contact-detail-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      border-radius: 12px;
+      background: rgba(18, 60, 135, 0.5);
+      border: 1.5px solid var(--gold-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .contact-detail-text strong { 
+      display: block; 
+      color: var(--gold-yellow); 
+      font-size: 0.78rem; 
+      letter-spacing: 1.2px; 
+      text-transform: uppercase; 
+      margin-bottom: 4px; 
+      font-weight: 700;
+    }
+    .contact-detail-text span { font-size: 0.94rem; line-height: 1.65; color: rgba(255,255,255,0.92); }
+    .contact-form { }
+    .contact-form h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-yellow);
+      margin-bottom: 26px;
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; color: var(--gold-glow); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 7px; font-weight: 600; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(244, 180, 26, 0.35);
+      border-radius: 8px;
+      padding: 13px 16px;
+      color: white;
+      font-size: 0.94rem;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.2s ease;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--gold-yellow);
+      background: rgba(18, 60, 135, 0.25);
+      box-shadow: 0 0 14px rgba(244, 180, 26, 0.35);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.45); }
+    .form-group textarea { min-height: 110px; resize: vertical; }
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-yellow), var(--gold-deep));
+      color: var(--maroon-dark);
+      border: 2px solid #FFE082;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      font-family: 'Lato', sans-serif;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+    }
+    .btn-submit:hover { 
+      transform: translateY(-2px); 
+      background: linear-gradient(135deg, #FFE082, var(--gold-yellow));
+      box-shadow: 0 8px 25px rgba(244,180,26,0.5); 
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #080204;
+      color: rgba(255,255,255,0.7);
+      padding: 52px 24px 24px;
+      border-top: 2px solid var(--royal-blue);
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 44px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(244,180,26,0.2);
+    }
+    .footer-brand img { width: 72px; border-radius: 50%; border: 3px solid var(--gold-yellow); margin-bottom: 14px; box-shadow: 0 0 15px rgba(244,180,26,0.4); }
+    .footer-brand h3 { font-family: 'Cinzel', serif; color: var(--pure-white); margin-bottom: 8px; font-size: 1.05rem; }
+    .footer-brand p { font-size: 0.86rem; line-height: 1.7; color: rgba(255,255,255,0.7); }
+    .footer-links h4, .footer-reg h4 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-yellow);
+      margin-bottom: 16px;
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 9px; }
+    .footer-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold-yellow); }
+    .footer-reg p { font-size: 0.86rem; line-height: 1.85; }
+    .footer-reg span { color: var(--gold-glow); font-weight: 600; }
+    .footer-bottom {
+      max-width: 1120px;
+      margin: 24px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-bottom span { color: var(--gold-glow); }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 50px; height: 50px;
+      background: var(--maroon);
+      border: 2px solid var(--gold-yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pure-white);
+      text-decoration: none;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+    .back-to-top:hover { 
+      background: var(--royal-blue); 
+      border-color: #FFE082; 
+      transform: translateY(-4px); 
+      box-shadow: 0 8px 24px rgba(18,60,135,0.5);
+    }
+
+    /* ===== WHATSAPP FLOATING BUTTON ===== */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      padding: 10px 20px 10px 14px;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      font-weight: 700;
+      font-size: 0.88rem;
+      font-family: 'Lato', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s, padding 0.3s;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 220px;
+    }
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(37,211,102,0.55);
+    }
+    .whatsapp-btn .wa-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      animation: wa-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes wa-pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.18); }
+    }
+    .whatsapp-btn .wa-label { line-height: 1.2; }
+    .whatsapp-btn .wa-label span { display: block; font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
+
+    /* ===== LANGUAGE TOGGLE ===== */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 2px solid var(--gold-yellow);
+      border-radius: 24px;
+      padding: 3px 4px;
+      flex-shrink: 0;
+      margin-left: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    }
+    .lang-btn {
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      font-family: 'Lato', 'Noto Sans Telugu', sans-serif;
+      letter-spacing: 0.8px;
+      transition: all 0.25s ease;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(244, 180, 26, 0.35);
+      color: var(--gold-glow);
+      border-color: rgba(244, 180, 26, 0.5);
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--gold-yellow), var(--gold-deep));
+      color: #3e0409;
+      font-weight: 900;
+      border: 1px solid #FFF59D;
+      box-shadow: 0 2px 8px rgba(244, 180, 26, 0.6);
+      text-shadow: none;
+    }
+
+    /* Telugu font support */
+    body.te-mode { font-family: 'Lato', 'Noto Sans Telugu', sans-serif; }
+    body.te-mode .section-title,
+    body.te-mode .obj-card h3,
+    body.te-mode .hero h1,
+    body.te-mode .nav-title span:first-child,
+    body.te-mode .about-text h2 { font-family: 'Cinzel', 'Noto Sans Telugu', serif; }
+
+    @media (max-width: 768px) {
+      .whatsapp-btn { padding: 10px 14px; max-width: 54px; }
+      .whatsapp-btn .wa-label { display: none; }
+      .whatsapp-btn { border-radius: 50%; width: 52px; height: 52px; justify-content: center; }
+      .lang-toggle { margin-left: 4px; }
+      .lang-btn { padding: 5px 9px; font-size: 0.72rem; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 10px 20px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--crimson); padding: 16px; gap: 4px; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px 16px; border-radius: 6px; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-logo-col { order: -1; }
+      .about-logo-frame { width: 200px; height: 200px; }
+      .about-logo-frame img { width: 170px; height: 170px; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero-logo { width: 120px; height: 120px; }
+      .about-info-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar" id="topbar-text">
+  🕉️ &nbsp; Reg. No. 228 of 2026 &nbsp;|&nbsp; Registered under Societies Registration Act 35 of 2001 &nbsp;|&nbsp; Yemmiganur, Kurnool, Andhra Pradesh &nbsp; 🕉️
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo-wrap">
+    <img src="logo.jpg" alt="Matha Sree Mandiram Logo" />
+    <div class="nav-title">
+      <span id="nav-title-main">Matha Sree Mandiram</span>
+      <span id="nav-title-sub">Charitable Society</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about"        id="nav-link-about">About</a></li>
+    <li><a href="#objectives"   id="nav-link-objectives">Objectives</a></li>
+    <li><a href="#activities"   id="nav-link-activities">Activities</a></li>
+    <li><a href="#leadership"   id="nav-link-leadership">Leadership</a></li>
+    <li><a href="#certificates" id="nav-link-certificates">Certificates</a></li>
+    <li><a href="#contact"      id="nav-link-contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        id="btn-te" onclick="setLang('te')">తె</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="logo.jpg" alt="Matha Sree Mandiram Charitable Society Logo" class="hero-logo" />
+    </div>
+    <span class="hero-om">🕉️</span>
+    <h1>Matha Sree <span id="hero-h1-span">Mandiram</span><br/><span id="hero-h1-line3">Charitable Society</span></h1>
+    <p class="hero-subtitle" id="hero-subtitle">Yemmiganur · Kurnool · Andhra Pradesh</p>
+    <div class="hero-divider"><span>✦</span></div>
+    <p class="hero-tagline" id="hero-tagline">
+      "Serving Humanity through Devotion, Culture & Compassion"<br/>
+      Preserving Dharma · Promoting Welfare · Uplifting Communities
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge" id="badge-reg">🏛️ Reg. No. 228 of 2026</span>
+      <span class="hero-badge" id="badge-act">📜 Societies Act 35 of 2001</span>
+      <span class="hero-badge" id="badge-npo">🤝 Non-Profit Organization</span>
+      <span class="hero-badge" id="badge-village">🕌 Gajuladinne Village, Kurnool</span>
+    </div>
+    <div class="hero-cta-wrap">
+      <a href="#objectives" class="btn-primary" id="cta-mission">Our Mission</a>
+      <a href="#contact" class="btn-outline" id="cta-contact">Get in Touch</a>
+    </div>
+  </div>
+  <a href="#about" class="scroll-down">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    scroll
+  </a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-logo-col">
+        <div class="about-logo-frame">
+          <img src="logo.jpg" alt="Society Logo" />
+        </div>
+      </div>
+      <div class="about-text">
+        <h2 id="about-h2">About the Society</h2>
+        <p id="about-p1">
+          <strong>Matha Sree Mandiram Charitable Society</strong> is a registered non-profit organisation dedicated to the establishment, maintenance and management of Matha Sree Mandiram and other religious places for worship. The Society was formed with the highest ideals of service, devotion and community welfare.
+        </p>
+        <p id="about-p2">
+          Situated at Gajuladinne Village, Gonegandla Mandal, Kurnool District, the Society strives to uphold Hindu traditions through daily poojas, homams, bhajans, pravachanams and spiritual discourses, while also serving the underprivileged through Annadanam, education and social welfare programmes.
+        </p>
+        <div class="about-info-row">
+          <div class="info-card">
+            <strong id="info-regoffice-label">Registered Office</strong>
+            <span id="info-regoffice-val">D.No. 5-24, Main Road, Gajuladinne Village, Gonegandla Mandal, Kurnool – 518463</span>
+          </div>
+          <div class="info-card">
+            <strong id="info-reg-label">Registration</strong>
+            <span id="info-reg-val">Reg. No. 228 of 2026<br/>Societies Registration Act 35 of 2001</span>
+          </div>
+          <div class="info-card">
+            <strong id="info-dist-label">District</strong>
+            <span id="info-dist-val">Kurnool District,<br/>Andhra Pradesh</span>
+          </div>
+          <div class="info-card">
+            <strong id="info-org-label">Organization Type</strong>
+            <span id="info-org-val">Non-Profit Charitable Society<br/>No commercial activity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section id="objectives">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="sec-obj-label">🕉️ Aims & Objectives</span>
+      <h2 class="section-title" id="sec-obj-title">Our Core Mission</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="sec-obj-desc">The Society is established to serve the community through spiritual, cultural, educational and humanitarian activities for the welfare of all.</p>
+    </div>
+    <div class="obj-grid">
+      <div class="obj-card">
+        <div class="obj-icon">🛕</div>
+        <h3 id="obj1-title">Religious & Spiritual</h3>
+        <p id="obj1-desc">To establish, maintain and manage Matha Sree Mandiram and other religious places for worship. To conduct daily poojas, homams, bhajans, pravachanams and spiritual discourses for the benefit of devotees and the public.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">🎭</div>
+        <h3 id="obj2-title">Cultural Promotion</h3>
+        <p id="obj2-desc">To promote and preserve Indian culture, traditions and heritage. To celebrate Hindu festivals like Navaratri, Sankranti, Sri Rama Navami, Shivaratri and to conduct cultural programmes for community enrichment.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">🍱</div>
+        <h3 id="obj3-title">Annadanam & Seva</h3>
+        <p id="obj3-desc">To provide free Annadanam, prasadam, drinking water and other essential services to devotees, poor and needy people without any discrimination of caste, creed or religion.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">📚</div>
+        <h3 id="obj4-title">Education</h3>
+        <p id="obj4-desc">To run Vedic schools, yoga classes, sloka classes and moral value education for children and youth, nurturing the next generation in Indian values and spiritual knowledge.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">❤️</div>
+        <h3 id="obj5-title">Charitable Activities</h3>
+        <p id="obj5-desc">To help poor, orphans, widows and senior citizens by providing medical aid, education support and financial assistance, ensuring no one in the community is left behind.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">🌿</div>
+        <h3 id="obj6-title">Social Welfare</h3>
+        <p id="obj6-desc">To conduct blood donation camps, health camps, tree plantation and cleanliness drives for the betterment of society and the environment we share together.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">🏗️</div>
+        <h3 id="obj7-title">Temple Maintenance</h3>
+        <p id="obj7-desc">To collect donations and maintain temple infrastructure, renovation and development works ensuring our sacred places of worship are preserved for future generations.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">🎉</div>
+        <h3 id="obj8-title">Festival Celebrations</h3>
+        <p id="obj8-desc">To celebrate Navaratri, Sankranti, Sri Rama Navami, Shivaratri and other Hindu festivals, bringing together the community in joy, devotion and spiritual togetherness.</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-icon">👩‍💼</div>
+        <h3 id="obj9-title">Women & Youth Empowerment</h3>
+        <p id="obj9-desc">To conduct skill development programmes and self-help groups for women and youth, empowering them with knowledge and resources for a self-reliant life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="sec-act-label">Our Activities</span>
+      <h2 class="section-title" id="sec-act-title">What We Do</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="sec-act-desc">A wide range of activities to serve the community in spiritual, educational, and humanitarian dimensions.</p>
+    </div>
+    <div class="activities-list">
+      <div class="activity-item">
+        <span class="act-icon">🙏</span>
+        <h4 id="act1-title">Daily Poojas</h4>
+        <p id="act1-desc">Conducting daily poojas, homams and spiritual discourses for devotees and the public.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">🎶</span>
+        <h4 id="act2-title">Bhajan & Pravachanam</h4>
+        <p id="act2-desc">Regular bhajans, kirtans and spiritual discourses to inspire devotion and community bonding.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">🍲</span>
+        <h4 id="act3-title">Free Annadanam</h4>
+        <p id="act3-desc">Providing free meals and prasadam to needy people without discrimination of caste or religion.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">📖</span>
+        <h4 id="act4-title">Vedic Education</h4>
+        <p id="act4-desc">Vedic schools, yoga classes, sloka classes for children and moral education for youth.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">🏥</span>
+        <h4 id="act5-title">Health Camps</h4>
+        <p id="act5-desc">Free health camps and blood donation drives for the welfare of the community.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">🌳</span>
+        <h4 id="act6-title">Environment</h4>
+        <p id="act6-desc">Tree plantation drives and cleanliness campaigns to build a greener, healthier environment.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">🌺</span>
+        <h4 id="act7-title">Festival Events</h4>
+        <p id="act7-desc">Grand celebrations of Navaratri, Sankranti, Sri Rama Navami, Shivaratri and more.</p>
+      </div>
+      <div class="activity-item">
+        <span class="act-icon">🤝</span>
+        <h4 id="act8-title">Financial Aid</h4>
+        <p id="act8-desc">Medical, educational and financial support for orphans, widows and senior citizens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="sec-lead-label">Leadership</span>
+      <h2 class="section-title" id="sec-lead-title">Our President</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="sec-lead-desc">The Society is led by a dedicated president committed to the mission of service and devotion.</p>
+    </div>
+    <div class="leader-card">
+      <div class="leader-avatar">🏅</div>
+      <span class="leader-role" id="leader-role">President</span>
+      <h3 class="leader-name" id="leader-name">Sri. T. Shivakumar</h3>
+      <p class="leader-parent" id="leader-parent">S/o Sri. T. Pedda Kondaiah</p>
+      <div class="leader-address">
+        <strong id="leader-addr-label">Residential Address</strong>
+        <p id="leader-addr-val">
+          D.No. 1/2451, T B P Colony,<br/>
+          Yemmiganur, Kurnool District – 518360,<br/>
+          Andhra Pradesh
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="sec-cert-label">Transparency & Trust</span>
+      <h2 class="section-title" id="sec-cert-title">Certifications</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="sec-cert-desc">Our Society operates with full transparency, integrity and in compliance with all legal regulations.</p>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-item">
+        <div class="cert-check">A</div>
+        <p id="cert-a">Certified that the Society is formed with <strong>no profit motive</strong> and no commercial activity is involved in its working.</p>
+      </div>
+      <div class="cert-item">
+        <div class="cert-check">B</div>
+        <p id="cert-b">Certified that the Association would <strong>not engage in agitation</strong> and trade union activities to ventilate grievances.</p>
+      </div>
+      <div class="cert-item">
+        <div class="cert-check">C</div>
+        <p id="cert-c">Certified that the <strong>office bearers are not paid</strong> from the committee funds — purely voluntary service.</p>
+      </div>
+      <div class="cert-item">
+        <div class="cert-check">D</div>
+        <p id="cert-d">Certified that the <strong>office bearers' signatures are genuine</strong> and duly attested by the Notary.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATION BANNER -->
+<div class="donation-banner">
+  <h2 id="donate-title">🤲 Support Our Sacred Mission</h2>
+  <p id="donate-desc">Your generous donation helps us serve thousands of devotees, provide free meals to the needy, and preserve our cultural heritage. Every contribution makes a difference.</p>
+  <a href="#contact" class="btn-donate" id="donate-btn">Donate / Contribute</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="sec-cont-label">📬 Reach Us</span>
+      <h2 class="section-title" id="sec-cont-title">Contact Us</h2>
+      <div class="section-rule" style="background: linear-gradient(to right, var(--gold), var(--crimson));"></div>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3 id="cont-left-h3">Get in Touch</h3>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong id="cd-phone-label">Contact Numbers</strong>
+            <span>
+              <a href="tel:+919494165764" style="color: inherit; text-decoration: none; font-weight: 700;">+91 94941 65764</a> &nbsp;/&nbsp; 
+              <a href="tel:+917993165764" style="color: inherit; text-decoration: none; font-weight: 700;">+91 79931 65764</a>
+            </span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <div class="contact-detail-text">
+            <strong id="cd-email-label">Email Address</strong>
+            <span>
+              <a href="mailto:shivatheppali@gmail.com" style="color: var(--gold-glow); text-decoration: none; font-weight: 700;">shivatheppali@gmail.com</a>
+            </span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong id="cd-map-label">Location / Google Maps</strong>
+            <span>
+              <a href="https://maps.app.goo.gl/Sy3hBW4YhGktEvha8?g_st=aw" target="_blank" rel="noopener" style="color: var(--gold-glow); text-decoration: underline; font-weight: 700;">
+                View on Google Maps ↗
+              </a>
+            </span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🏛️</div>
+          <div class="contact-detail-text">
+            <strong id="cd-regoffice-label">Registered Office</strong>
+            <span id="cd-regoffice-val">D.No. 5-24, Main Road, Gajuladinne Village,<br/>Gonegandla Mandal, Kurnool District – 518463,<br/>Andhra Pradesh</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🏠</div>
+          <div class="contact-detail-text">
+            <strong id="cd-presaddr-label">President's Address</strong>
+            <span id="cd-presaddr-val">D.No. 1/2451, T B P Colony,<br/>Yemmiganur, Kurnool – 518360,<br/>Andhra Pradesh</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📋</div>
+          <div class="contact-detail-text">
+            <strong id="cd-reg-label">Registration Details</strong>
+            <span id="cd-reg-val">Reg. No. 228 of 2026<br/>Societies Registration Act 35 of 2001<br/>Registered at Kurnool</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📅</div>
+          <div class="contact-detail-text">
+            <strong id="cd-est-label">Established</strong>
+            <span id="cd-est-val">Resolution Dated: 09-07-2026<br/>Place: Gonegandla</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 id="cont-right-h3">Send a Message</h3>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label id="form-name-lbl">Your Name</label>
+            <input id="form-name-input" type="text" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label id="form-email-lbl">Email Address</label>
+            <input id="form-email-input" type="email" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label id="form-subj-lbl">Subject</label>
+            <select id="form-subj-sel">
+              <option value="">— Select a subject —</option>
+              <option>Donation / Contribution</option>
+              <option>Membership Enquiry</option>
+              <option>Event Collaboration</option>
+              <option>Volunteer Opportunity</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label id="form-msg-lbl">Message</label>
+            <textarea id="form-msg-area" placeholder="Write your message here..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="form-btn">🕉️ Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="logo.jpg" alt="Logo" />
+      <h3 id="foot-title">Matha Sree Mandiram Charitable Society</h3>
+      <p id="foot-desc">A registered non-profit charitable organisation dedicated to religious, cultural, educational and social welfare activities for the benefit of the community.</p>
+    </div>
+    <div class="footer-links">
+      <h4 id="foot-links-h">Quick Links</h4>
+      <ul>
+        <li><a href="#about"        id="foot-link-about">About Us</a></li>
+        <li><a href="#objectives"   id="foot-link-miss">Our Mission</a></li>
+        <li><a href="#activities"   id="foot-link-act">Activities</a></li>
+        <li><a href="#leadership"   id="foot-link-lead">Leadership</a></li>
+        <li><a href="#certificates" id="foot-link-cert">Certifications</a></li>
+        <li><a href="#contact"      id="foot-link-cont">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-reg">
+      <h4 id="foot-reg-h">Registration Info</h4>
+      <p>
+        <span>Reg. No.:</span> <span id="foot-reg-no">228 of 2026</span><br/>
+        <span>Act:</span> <span id="foot-reg-act">Societies Reg. Act 35 of 2001</span><br/>
+        <span>District:</span> <span id="foot-dist">Kurnool</span><br/>
+        <span>State:</span> <span id="foot-state">Andhra Pradesh</span><br/>
+        <span>Nature:</span> <span id="foot-nature">Non-Profit / Charitable</span><br/>
+        <span>Est.:</span> <span id="foot-est">09-07-2026</span>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="foot-copy">© 2026 Matha Sree Mandiram Charitable Society. All rights reserved.</span>
+    <span id="foot-motto">🕉️ Serving with Devotion &amp; Compassion</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/919494165764?text=Namaste%2C%20I%20would%20like%20to%20know%20more%20about%20Matha%20Sree%20Mandiram%20Charitable%20Society."
+   class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-icon">💬</span>
+  <div class="wa-label">
+    <span id="wa-label">Chat with Us</span>
+    <span id="wa-sub">WhatsApp</span>
+  </div>
+</a>
+
+<!-- BACK TO TOP -->
+<a href="#home" class="back-to-top" title="Back to top">↑</a>
+
+<script>
+  // =============================================
+  //  MOBILE MENU
+  // =============================================
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // =============================================
+  //  NAVBAR SCROLL SHADOW
+  // =============================================
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.boxShadow = window.scrollY > 60
+      ? '0 4px 32px rgba(0,0,0,0.3)'
+      : '';
+  });
+
+  // =============================================
+  //  SCROLL FADE-IN
+  // =============================================
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.obj-card, .activity-item, .cert-item, .leader-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // =============================================
+  //  FORM SUBMIT
+  // =============================================
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    const isTE = document.documentElement.lang === 'te';
+    btn.textContent = isTE
+      ? '✅ సందేశం పంపబడింది! మేము త్వరలో మీకు తెలియజేస్తాము.'
+      : '✅ Message Sent! We will get back to you soon.';
+    btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+    setTimeout(() => {
+      btn.textContent = isTE ? '🕉️ సందేశం పంపండి' : '🕉️ Send Message';
+      btn.style.background = '';
+      e.target.reset();
+    }, 4000);
+  }
+
+  // =============================================
+  //  BILINGUAL TRANSLATIONS (EN ↔ TE)
+  // =============================================
+  const translations = {
+    // ---- TOP BAR ----
+    'topbar': {
+      en: '🕉️ \u00a0 Reg. No. 228 of 2026 \u00a0|\u00a0 Registered under Societies Registration Act 35 of 2001 \u00a0|\u00a0 Yemmiganur, Kurnool, Andhra Pradesh \u00a0 🕉️',
+      te: '🕉️ \u00a0 నమోదు సం. 228 of 2026 \u00a0|\u00a0 సొసైటీల నమోదు చట్టం 35 of 2001 కింద నమోదైంది \u00a0|\u00a0 యెమ్మిగానూరు, కర్నూలు, ఆంధ్రప్రదేశ్ \u00a0 🕉️'
+    },
+    // ---- NAV LINKS ----
+    'nav-about':        { en: 'About',        te: 'మా గురించి'   },
+    'nav-objectives':   { en: 'Objectives',   te: 'లక్ష్యాలు'     },
+    'nav-activities':   { en: 'Activities',   te: 'కార్యక్రమాలు'  },
+    'nav-leadership':   { en: 'Leadership',   te: 'నాయకత్వం'     },
+    'nav-certificates': { en: 'Certificates', te: 'ధృవపత్రాలు'   },
+    'nav-contact':      { en: 'Contact',      te: 'సంప్రదించండి'  },
+    // ---- NAV TITLE ----
+    'nav-title-main': { en: 'Matha Sree Mandiram',   te: 'మాత శ్రీ మందిరం'          },
+    'nav-title-sub':  { en: 'Charitable Society',    te: 'చారిటబుల్ సొసైటీ'         },
+    // ---- HERO ----
+    'hero-h1-line1':  { en: 'Matha Sree',            te: 'మాత శ్రీ'                  },
+    'hero-h1-line2':  { en: 'Mandiram',               te: 'మందిరం'                   },
+    'hero-h1-line3':  { en: 'Charitable Society',    te: 'చారిటబుల్ సొసైటీ'         },
+    'hero-subtitle':  { en: 'Yemmiganur · Kurnool · Andhra Pradesh', te: 'యెమ్మిగానూరు · కర్నూలు · ఆంధ్రప్రదేశ్' },
+    'hero-tagline':   {
+      en: '"Serving Humanity through Devotion, Culture & Compassion"<br/>Preserving Dharma · Promoting Welfare · Uplifting Communities',
+      te: '"భక్తి, సంస్కృతి & కరుణతో మానవతకు సేవ చేయడం"<br/>ధర్మాన్ని కాపాడడం · సంక్షేమాన్ని ప్రోత్సహించడం · సమాజాన్ని అభివృద్ధి చేయడం'
+    },
+    'badge-reg':      { en: '🏛️ Reg. No. 228 of 2026',           te: '🏛️ నమోదు సం. 228 of 2026'              },
+    'badge-act':      { en: '📜 Societies Act 35 of 2001',        te: '📜 సొసైటీల చట్టం 35 of 2001'          },
+    'badge-npo':      { en: '🤝 Non-Profit Organization',         te: '🤝 లాభాపేక్ష లేని సంస్థ'              },
+    'badge-village':  { en: '🕌 Gajuladinne Village, Kurnool',    te: '🕌 గాజులదిన్నె గ్రామం, కర్నూలు'       },
+    'cta-mission':    { en: 'Our Mission',    te: 'మా లక్ష్యం'    },
+    'cta-contact':    { en: 'Get in Touch',   te: 'సంప్రదించండి'  },
+    // ---- ABOUT ----
+    'about-label':    { en: 'About the Society',  te: 'సొసైటీ గురించి'   },
+    'about-p1': {
+      en: '<strong>Matha Sree Mandiram Charitable Society</strong> is a registered non-profit organisation dedicated to the establishment, maintenance and management of Matha Sree Mandiram and other religious places for worship. The Society was formed with the highest ideals of service, devotion and community welfare.',
+      te: '<strong>మాత శ్రీ మందిరం చారిటబుల్ సొసైటీ</strong> అనేది నమోదైన లాభాపేక్ష లేని సంస్థ. ఇది మాత శ్రీ మందిరం మరియు ఇతర మతపరమైన ప్రార్థనా స్థలాలను స్థాపించడం, నిర్వహించడం మరియు నిర్వహణ చేయడానికి అంకితమైంది. సేవ, భక్తి మరియు సమాజ సంక్షేమం అనే ఉన్నత ఆదర్శాలతో ఈ సొసైటీ ఏర్పాటైంది.'
+    },
+    'about-p2': {
+      en: 'Situated at Gajuladinne Village, Gonegandla Mandal, Kurnool District, the Society strives to uphold Hindu traditions through daily poojas, homams, bhajans, pravachanams and spiritual discourses, while also serving the underprivileged through Annadanam, education and social welfare programmes.',
+      te: 'కర్నూలు జిల్లా, గోనెగండ్ల మండలం, గాజులదిన్నె గ్రామంలో ఉన్న ఈ సొసైటీ రోజువారీ పూజలు, హోమాలు, భజనలు, ప్రవచనాలు మరియు ఆధ్యాత్మిక ఉపన్యాసాల ద్వారా హిందూ సంప్రదాయాలను నిలబెట్టేందుకు కృషి చేస్తుంది. అదే సమయంలో అన్నదానం, విద్య మరియు సామాజిక సంక్షేమ కార్యక్రమాల ద్వారా వెనుకబడిన వారికి సేవ చేస్తుంది.'
+    },
+    'info-regoffice-label': { en: 'Registered Office', te: 'నమోదైన కార్యాలయం'   },
+    'info-regoffice-val':   { en: 'D.No. 5-24, Main Road, Gajuladinne Village, Gonegandla Mandal, Kurnool – 518463', te: 'డి.నెం. 5-24, మెయిన్ రోడ్, గాజులదిన్నె గ్రామం, గోనెగండ్ల మండలం, కర్నూలు – 518463' },
+    'info-reg-label':       { en: 'Registration',       te: 'నమోదు'               },
+    'info-reg-val':         { en: 'Reg. No. 228 of 2026<br/>Societies Registration Act 35 of 2001', te: 'నమోదు సం. 228 of 2026<br/>సొసైటీల నమోదు చట్టం 35 of 2001' },
+    'info-dist-label':      { en: 'District',           te: 'జిల్లా'               },
+    'info-dist-val':        { en: 'Kurnool District,<br/>Andhra Pradesh',           te: 'కర్నూలు జిల్లా,<br/>ఆంధ్రప్రదేశ్'           },
+    'info-org-label':       { en: 'Organization Type',  te: 'సంస్థ రకం'           },
+    'info-org-val':         { en: 'Non-Profit Charitable Society<br/>No commercial activity', te: 'లాభాపేక్ష లేని చారిటబుల్ సొసైటీ<br/>వాణిజ్య కార్యకలాపాలు లేవు' },
+    // ---- OBJECTIVES SECTION ----
+    'sec-obj-label': { en: '🕉️ Aims & Objectives', te: '🕉️ లక్ష్యాలు & ఉద్దేశాలు' },
+    'sec-obj-title': { en: 'Our Core Mission',      te: 'మా ప్రధాన లక్ష్యం'        },
+    'sec-obj-desc':  { en: 'The Society is established to serve the community through spiritual, cultural, educational and humanitarian activities for the welfare of all.', te: 'ఈ సొసైటీ అందరి సంక్షేమం కోసం ఆధ్యాత్మిక, సాంస్కృతిక, విద్యా మరియు మానవతా కార్యకలాపాల ద్వారా సమాజానికి సేవ చేయడానికి స్థాపించబడింది.' },
+    'obj1-title': { en: 'Religious & Spiritual',       te: 'మతపరమైన & ఆధ్యాత్మిక'    },
+    'obj1-desc':  { en: 'To establish, maintain and manage Matha Sree Mandiram and other religious places for worship. To conduct daily poojas, homams, bhajans, pravachanams and spiritual discourses for the benefit of devotees and the public.', te: 'మాత శ్రీ మందిరం మరియు ఇతర మతపరమైన ప్రార్థనా స్థలాలను స్థాపించి, నిర్వహించడం. భక్తులు మరియు ప్రజల మేలు కోసం రోజువారీ పూజలు, హోమాలు, భజనలు, ప్రవచనాలు నిర్వహించడం.' },
+    'obj2-title': { en: 'Cultural Promotion',          te: 'సాంస్కృతిక ప్రోత్సాహం'   },
+    'obj2-desc':  { en: 'To promote and preserve Indian culture, traditions and heritage. To celebrate Hindu festivals like Navaratri, Sankranti, Sri Rama Navami, Shivaratri and to conduct cultural programmes for community enrichment.', te: 'భారతీయ సంస్కృతి, సంప్రదాయాలు మరియు వారసత్వాన్ని ప్రోత్సహించడం మరియు పరిరక్షించడం. నవరాత్రి, సంక్రాంతి, శ్రీ రామ నవమి, శివరాత్రి వంటి హిందూ పండుగలను జరుపుకోవడం.' },
+    'obj3-title': { en: 'Annadanam & Seva',            te: 'అన్నదానం & సేవ'           },
+    'obj3-desc':  { en: 'To provide free Annadanam, prasadam, drinking water and other essential services to devotees, poor and needy people without any discrimination of caste, creed or religion.', te: 'కుల, మత, వర్గ భేదం లేకుండా భక్తులకు, పేదలకు మరియు అవసరమైన వారికి ఉచిత అన్నదానం, ప్రసాదం, తాగునీరు మరియు ఇతర అవసర సేవలు అందించడం.' },
+    'obj4-title': { en: 'Education',                   te: 'విద్య'                   },
+    'obj4-desc':  { en: 'To run Vedic schools, yoga classes, sloka classes and moral value education for children and youth, nurturing the next generation in Indian values and spiritual knowledge.', te: 'పిల్లలు మరియు యువతకు వేద పాఠశాలలు, యోగా తరగతులు, శ్లోక తరగతులు మరియు నైతిక విలువల విద్యను అందించడం.' },
+    'obj5-title': { en: 'Charitable Activities',       te: 'దాతృత్వ కార్యక్రమాలు'   },
+    'obj5-desc':  { en: 'To help poor, orphans, widows and senior citizens by providing medical aid, education support and financial assistance, ensuring no one in the community is left behind.', te: 'పేదలు, అనాథలు, వితంతువులు మరియు వృద్ధులకు వైద్య సహాయం, విద్యా మద్దతు మరియు ఆర్థిక సహాయం అందించడం.' },
+    'obj6-title': { en: 'Social Welfare',              te: 'సామాజిక సంక్షేమం'        },
+    'obj6-desc':  { en: 'To conduct blood donation camps, health camps, tree plantation and cleanliness drives for the betterment of society and the environment we share together.', te: 'సమాజ మరియు పర్యావరణ అభివృద్ధి కోసం రక్తదాన శిబిరాలు, ఆరోగ్య శిబిరాలు, వృక్షారోపణ మరియు శుభ్రత కార్యక్రమాలు నిర్వహించడం.' },
+    'obj7-title': { en: 'Temple Maintenance',          te: 'దేవాలయ నిర్వహణ'          },
+    'obj7-desc':  { en: 'To collect donations and maintain temple infrastructure, renovation and development works ensuring our sacred places of worship are preserved for future generations.', te: 'విరాళాలు సేకరించి దేవాలయ మౌలిక సదుపాయాలు, పునరుద్ధరణ మరియు అభివృద్ధి పనులు నిర్వహించడం. మన పవిత్ర ప్రార్థనా స్థలాలను భవిష్యత్తు తరాలకు పరిరక్షించడం.' },
+    'obj8-title': { en: 'Festival Celebrations',       te: 'పండుగ వేడుకలు'           },
+    'obj8-desc':  { en: 'To celebrate Navaratri, Sankranti, Sri Rama Navami, Shivaratri and other Hindu festivals, bringing together the community in joy, devotion and spiritual togetherness.', te: 'నవరాత్రి, సంక్రాంతి, శ్రీ రామ నవమి, శివరాత్రి మరియు ఇతర హిందూ పండుగలను జరుపుకోవడం. సమాజాన్ని ఆనందం, భక్తి మరియు ఆధ్యాత్మిక ఐక్యతలో కలపడం.' },
+    'obj9-title': { en: 'Women & Youth Empowerment',   te: 'మహిళలు & యువత సాధికారత'  },
+    'obj9-desc':  { en: 'To conduct skill development programmes and self-help groups for women and youth, empowering them with knowledge and resources for a self-reliant life.', te: 'మహిళలు మరియు యువతకు నైపుణ్య అభివృద్ధి కార్యక్రమాలు మరియు స్వయం సహాయక బృందాలు నిర్వహించడం. స్వావలంబన జీవితం కోసం వారికి జ్ఞానం మరియు వనరులు అందించడం.' },
+    // ---- ACTIVITIES SECTION ----
+    'sec-act-label': { en: 'Our Activities', te: 'మా కార్యక్రమాలు'  },
+    'sec-act-title': { en: 'What We Do',     te: 'మేము ఏమి చేస్తాము' },
+    'sec-act-desc':  { en: 'A wide range of activities to serve the community in spiritual, educational, and humanitarian dimensions.', te: 'ఆధ్యాత్మిక, విద్యా మరియు మానవతా కోణాలలో సమాజానికి సేవ చేయడానికి విస్తృత శ్రేణి కార్యక్రమాలు.' },
+    'act1-title': { en: 'Daily Poojas',          te: 'రోజువారీ పూజలు'      },
+    'act1-desc':  { en: 'Conducting daily poojas, homams and spiritual discourses for devotees and the public.', te: 'భక్తులు మరియు ప్రజలకు రోజువారీ పూజలు, హోమాలు మరియు ఆధ్యాత్మిక ఉపన్యాసాలు నిర్వహించడం.' },
+    'act2-title': { en: 'Bhajan & Pravachanam', te: 'భజన & ప్రవచనం'       },
+    'act2-desc':  { en: 'Regular bhajans, kirtans and spiritual discourses to inspire devotion and community bonding.', te: 'భక్తిని మరియు సమాజ ఐక్యతను ప్రేరేపించడానికి క్రమమైన భజనలు, కీర్తనలు మరియు ఆధ్యాత్మిక ఉపన్యాసాలు.' },
+    'act3-title': { en: 'Free Annadanam',       te: 'ఉచిత అన్నదానం'      },
+    'act3-desc':  { en: 'Providing free meals and prasadam to needy people without discrimination of caste or religion.', te: 'కుల లేదా మత భేదం లేకుండా అవసరమైన వారికి ఉచిత భోజనం మరియు ప్రసాదం అందించడం.' },
+    'act4-title': { en: 'Vedic Education',      te: 'వేద విద్య'            },
+    'act4-desc':  { en: 'Vedic schools, yoga classes, sloka classes for children and moral education for youth.', te: 'పిల్లలకు వేద పాఠశాలలు, యోగా తరగతులు, శ్లోక తరగతులు మరియు యువతకు నైతిక విద్య.' },
+    'act5-title': { en: 'Health Camps',         te: 'ఆరోగ్య శిబిరాలు'    },
+    'act5-desc':  { en: 'Free health camps and blood donation drives for the welfare of the community.', te: 'సమాజ సంక్షేమం కోసం ఉచిత ఆరోగ్య శిబిరాలు మరియు రక్తదాన కార్యక్రమాలు.' },
+    'act6-title': { en: 'Environment',          te: 'పర్యావరణం'           },
+    'act6-desc':  { en: 'Tree plantation drives and cleanliness campaigns to build a greener, healthier environment.', te: 'పచ్చదనమైన, ఆరోగ్యకరమైన పర్యావరణం కోసం వృక్షారోపణ మరియు శుభ్రత కార్యక్రమాలు.' },
+    'act7-title': { en: 'Festival Events',      te: 'పండుగ కార్యక్రమాలు'  },
+    'act7-desc':  { en: 'Grand celebrations of Navaratri, Sankranti, Sri Rama Navami, Shivaratri and more.', te: 'నవరాత్రి, సంక్రాంతి, శ్రీ రామ నవమి, శివరాత్రి మరియు ఇతర పండుగల మహోత్సవాలు.' },
+    'act8-title': { en: 'Financial Aid',        te: 'ఆర్థిక సహాయం'       },
+    'act8-desc':  { en: 'Medical, educational and financial support for orphans, widows and senior citizens.', te: 'అనాథలు, వితంతువులు మరియు వృద్ధులకు వైద్య, విద్యా మరియు ఆర్థిక సహాయం.' },
+    // ---- LEADERSHIP ----
+    'sec-lead-label':  { en: 'Leadership',    te: 'నాయకత్వం'       },
+    'sec-lead-title':  { en: 'Our President', te: 'మా అధ్యక్షుడు'  },
+    'sec-lead-desc':   { en: 'The Society is led by a dedicated president committed to the mission of service and devotion.', te: 'సేవ మరియు భక్తి లక్ష్యానికి అంకితమైన అంకితభావ అధ్యక్షుడిచే సొసైటీ నాయకత్వం వహించబడుతోంది.' },
+    'leader-role':     { en: 'President',     te: 'అధ్యక్షుడు'      },
+    'leader-name':     { en: 'Sri. T. Shivakumar',       te: 'శ్రీ. టి. శివకుమార్'       },
+    'leader-parent':   { en: 'S/o Sri. T. Pedda Kondaiah',   te: 'శ్రీ. టి. పెద్ద కొండయ్య గారి పుత్రుడు' },
+    'leader-addr-label': { en: 'Residential Address', te: 'నివాస చిరునామా' },
+    'leader-addr-val':   { en: 'D.No. 1/2451, T B P Colony,<br/>Yemmiganur, Kurnool District – 518360,<br/>Andhra Pradesh', te: 'డి.నెం. 1/2451, టి.బి.పి. కాలనీ,<br/>యెమ్మిగానూరు, కర్నూలు జిల్లా – 518360,<br/>ఆంధ్రప్రదేశ్' },
+    // ---- CERTIFICATES ----
+    'sec-cert-label': { en: 'Transparency & Trust', te: 'పారదర్శకత & విశ్వాసం' },
+    'sec-cert-title': { en: 'Certifications',       te: 'ధృవపత్రాలు'           },
+    'sec-cert-desc':  { en: 'Our Society operates with full transparency, integrity and in compliance with all legal regulations.', te: 'మా సొసైటీ పూర్తి పారదర్శకత, నిజాయితీతో మరియు అన్ని చట్టపరమైన నిబంధనలకు అనుగుణంగా పనిచేస్తుంది.' },
+    'cert-a': { en: 'Certified that the Society is formed with <strong>no profit motive</strong> and no commercial activity is involved in its working.', te: 'ఈ సొసైటీ <strong>లాభాపేక్ష లేకుండా</strong> స్థాపించబడిందని మరియు దాని పనిలో ఎటువంటి వాణిజ్య కార్యకలాపాలు పాల్గొనడం లేదని ధృవీకరించబడింది.' },
+    'cert-b': { en: 'Certified that the Association would <strong>not engage in agitation</strong> and trade union activities to ventilate grievances.', te: 'సంఘం ఫిర్యాదులను వ్యక్తం చేయడానికి <strong>ఆందోళన మరియు ట్రేడ్ యూనియన్ కార్యకలాపాలలో పాల్గొనదు</strong> అని ధృవీకరించబడింది.' },
+    'cert-c': { en: 'Certified that the <strong>office bearers are not paid</strong> from the committee funds — purely voluntary service.', te: '<strong>కార్యదర్శులకు కమిటీ నిధుల నుండి వేతనాలు చెల్లించడం లేదు</strong> — పూర్తి స్వచ్ఛంద సేవ అని ధృవీకరించబడింది.' },
+    'cert-d': { en: 'Certified that the <strong>office bearers\' signatures are genuine</strong> and duly attested by the Notary.', te: '<strong>కార్యదర్శుల సంతకాలు నిజమైనవి</strong> మరియు నోటరీ ద్వారా సత్యాపించబడినవి అని ధృవీకరించబడింది.' },
+    // ---- DONATION BANNER ----
+    'donate-title': { en: '🤲 Support Our Sacred Mission',   te: '🤲 మా పవిత్ర లక్ష్యానికి మద్దతు ఇవ్వండి' },
+    'donate-desc':  { en: 'Your generous donation helps us serve thousands of devotees, provide free meals to the needy, and preserve our cultural heritage. Every contribution makes a difference.', te: 'మీ దాతృత్వ విరాళం వేలాది మంది భక్తులకు సేవ చేయడానికి, అవసరమైన వారికి ఉచిత భోజనం అందించడానికి మరియు మన సాంస్కృతిక వారసత్వాన్ని పరిరక్షించడానికి సహాయపడుతుంది.' },
+    'donate-btn':   { en: 'Donate / Contribute', te: 'విరాళం / సహకరించండి' },
+    // ---- CONTACT ----
+    'sec-cont-label': { en: '📬 Reach Us',  te: '📬 మాతో సంప్రదించండి' },
+    'sec-cont-title': { en: 'Contact Us',   te: 'సంప్రదించండి'          },
+    'cont-left-h3':   { en: 'Get in Touch', te: 'మాతో సంప్రదించండి'    },
+    'cd-phone-label': { en: 'Contact Numbers', te: 'సంప్రదింపు నంబర్లు' },
+    'cd-email-label': { en: 'Email Address',    te: 'ఇమెయిల్ చిరునామా'  },
+    'cd-map-label':   { en: 'Location / Google Maps', te: 'స్థానం / గూగుల్ మ్యాప్స్' },
+    'cd-regoffice-label': { en: 'Registered Office',    te: 'నమోదైన కార్యాలయం'  },
+    'cd-regoffice-val':   { en: 'D.No. 5-24, Main Road, Gajuladinne Village,<br/>Gonegandla Mandal, Kurnool District – 518463,<br/>Andhra Pradesh', te: 'డి.నెం. 5-24, మెయిన్ రోడ్, గాజులదిన్నె గ్రామం,<br/>గోనెగండ్ల మండలం, కర్నూలు జిల్లా – 518463,<br/>ఆంధ్రప్రదేశ్' },
+    'cd-presaddr-label':  { en: "President's Address",  te: 'అధ్యక్షుడి చిరునామా' },
+    'cd-presaddr-val':    { en: 'D.No. 1/2451, T B P Colony,<br/>Yemmiganur, Kurnool – 518360,<br/>Andhra Pradesh', te: 'డి.నెం. 1/2451, టి.బి.పి. కాలనీ,<br/>యెమ్మిగానూరు, కర్నూలు – 518360,<br/>ఆంధ్రప్రదేశ్' },
+    'cd-reg-label':  { en: 'Registration Details', te: 'నమోదు వివరాలు'   },
+    'cd-reg-val':    { en: 'Reg. No. 228 of 2026<br/>Societies Registration Act 35 of 2001<br/>Registered at Kurnool', te: 'నమోదు సం. 228 of 2026<br/>సొసైటీల నమోదు చట్టం 35 of 2001<br/>కర్నూలులో నమోదైంది' },
+    'cd-est-label':  { en: 'Established',          te: 'స్థాపించబడింది'   },
+    'cd-est-val':    { en: 'Resolution Dated: 09-07-2026<br/>Place: Gonegandla', te: 'తీర్మానం తేదీ: 09-07-2026<br/>స్థలం: గోనెగండ్ల' },
+    'cont-right-h3': { en: 'Send a Message',  te: 'సందేశం పంపండి'  },
+    'form-name-lbl': { en: 'Your Name',       te: 'మీ పేరు'         },
+    'form-name-ph':  { en: 'Enter your full name', te: 'మీ పూర్తి పేరు నమోదు చేయండి' },
+    'form-email-lbl':{ en: 'Email Address',   te: 'ఇమెయిల్ చిరునామా' },
+    'form-email-ph': { en: 'Enter your email', te: 'మీ ఇమెయిల్ నమోదు చేయండి' },
+    'form-subj-lbl': { en: 'Subject',          te: 'విషయం'           },
+    'form-subj-ph':  { en: '— Select a subject —', te: '— విషయాన్ని ఎంచుకోండి —' },
+    'form-msg-lbl':  { en: 'Message',          te: 'సందేశం'          },
+    'form-msg-ph':   { en: 'Write your message here...', te: 'మీ సందేశాన్ని ఇక్కడ రాయండి...' },
+    'form-btn':      { en: '🕉️ Send Message', te: '🕉️ సందేశం పంపండి' },
+    // ---- FOOTER ----
+    'foot-title': { en: 'Matha Sree Mandiram Charitable Society', te: 'మాత శ్రీ మందిరం చారిటబుల్ సొసైటీ' },
+    'foot-desc':  { en: 'A registered non-profit charitable organisation dedicated to religious, cultural, educational and social welfare activities for the benefit of the community.', te: 'సమాజ ప్రయోజనం కోసం మతపరమైన, సాంస్కృతిక, విద్యా మరియు సామాజిక సంక్షేమ కార్యకలాపాలకు అంకితమైన నమోదైన లాభాపేక్ష లేని సంస్థ.' },
+    'foot-links-h': { en: 'Quick Links',       te: 'త్వరిత లింకులు'    },
+    'foot-link-about':  { en: 'About Us',      te: 'మా గురించి'        },
+    'foot-link-miss':   { en: 'Our Mission',   te: 'మా లక్ష్యం'        },
+    'foot-link-act':    { en: 'Activities',    te: 'కార్యక్రమాలు'      },
+    'foot-link-lead':   { en: 'Leadership',    te: 'నాయకత్వం'          },
+    'foot-link-cert':   { en: 'Certifications',te: 'ధృవపత్రాలు'        },
+    'foot-link-cont':   { en: 'Contact Us',    te: 'సంప్రదించండి'      },
+    'foot-reg-h':  { en: 'Registration Info',  te: 'నమోదు సమాచారం'     },
+    'foot-reg-no': { en: '228 of 2026',         te: '228 of 2026'       },
+    'foot-reg-act':{ en: 'Societies Reg. Act 35 of 2001', te: 'సొసైటీల నమోదు చట్టం 35 of 2001' },
+    'foot-dist':   { en: 'Kurnool',             te: 'కర్నూలు'           },
+    'foot-state':  { en: 'Andhra Pradesh',      te: 'ఆంధ్రప్రదేశ్'      },
+    'foot-nature': { en: 'Non-Profit / Charitable', te: 'లాభాపేక్ష లేని / చారిటబుల్' },
+    'foot-est':    { en: '09-07-2026',           te: '09-07-2026'        },
+    'foot-copy':   { en: '© 2026 Matha Sree Mandiram Charitable Society. All rights reserved.', te: '© 2026 మాత శ్రీ మందిరం చారిటబుల్ సొసైటీ. అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి.' },
+    'foot-motto':  { en: '🕉️ Serving with Devotion & Compassion', te: '🕉️ భక్తి & కరుణతో సేవ చేయడం' },
+    // ---- WHATSAPP ----
+    'wa-label':    { en: 'Chat with Us', te: 'మాతో చాట్ చేయండి' },
+    'wa-sub':      { en: 'WhatsApp',     te: 'వాట్సాప్'           },
+  };
+
+  // Apply data-key attribute to all translatable nodes
+  const keyMap = {
+    // top bar
+    '#topbar-text':              'topbar',
+    // nav links
+    '#nav-link-about':           'nav-about',
+    '#nav-link-objectives':      'nav-objectives',
+    '#nav-link-activities':      'nav-activities',
+    '#nav-link-leadership':      'nav-leadership',
+    '#nav-link-certificates':    'nav-certificates',
+    '#nav-link-contact':         'nav-contact',
+    '#nav-title-main':           'nav-title-main',
+    '#nav-title-sub':            'nav-title-sub',
+    // hero
+    '#hero-h1-span':             'hero-h1-line2',
+    '#hero-h1-line3':            'hero-h1-line3',
+    '#hero-subtitle':            'hero-subtitle',
+    '#hero-tagline':             'hero-tagline',
+    '#badge-reg':                'badge-reg',
+    '#badge-act':                'badge-act',
+    '#badge-npo':                'badge-npo',
+    '#badge-village':            'badge-village',
+    '#cta-mission':              'cta-mission',
+    '#cta-contact':              'cta-contact',
+    // about
+    '#about-h2':                 'about-label',
+    '#about-p1':                 'about-p1',
+    '#about-p2':                 'about-p2',
+    '#info-regoffice-label':     'info-regoffice-label',
+    '#info-regoffice-val':       'info-regoffice-val',
+    '#info-reg-label':           'info-reg-label',
+    '#info-reg-val':             'info-reg-val',
+    '#info-dist-label':          'info-dist-label',
+    '#info-dist-val':            'info-dist-val',
+    '#info-org-label':           'info-org-label',
+    '#info-org-val':             'info-org-val',
+    // objectives
+    '#sec-obj-label':            'sec-obj-label',
+    '#sec-obj-title':            'sec-obj-title',
+    '#sec-obj-desc':             'sec-obj-desc',
+    '#obj1-title': 'obj1-title', '#obj1-desc': 'obj1-desc',
+    '#obj2-title': 'obj2-title', '#obj2-desc': 'obj2-desc',
+    '#obj3-title': 'obj3-title', '#obj3-desc': 'obj3-desc',
+    '#obj4-title': 'obj4-title', '#obj4-desc': 'obj4-desc',
+    '#obj5-title': 'obj5-title', '#obj5-desc': 'obj5-desc',
+    '#obj6-title': 'obj6-title', '#obj6-desc': 'obj6-desc',
+    '#obj7-title': 'obj7-title', '#obj7-desc': 'obj7-desc',
+    '#obj8-title': 'obj8-title', '#obj8-desc': 'obj8-desc',
+    '#obj9-title': 'obj9-title', '#obj9-desc': 'obj9-desc',
+    // activities
+    '#sec-act-label': 'sec-act-label', '#sec-act-title': 'sec-act-title', '#sec-act-desc': 'sec-act-desc',
+    '#act1-title': 'act1-title', '#act1-desc': 'act1-desc',
+    '#act2-title': 'act2-title', '#act2-desc': 'act2-desc',
+    '#act3-title': 'act3-title', '#act3-desc': 'act3-desc',
+    '#act4-title': 'act4-title', '#act4-desc': 'act4-desc',
+    '#act5-title': 'act5-title', '#act5-desc': 'act5-desc',
+    '#act6-title': 'act6-title', '#act6-desc': 'act6-desc',
+    '#act7-title': 'act7-title', '#act7-desc': 'act7-desc',
+    '#act8-title': 'act8-title', '#act8-desc': 'act8-desc',
+    // leadership
+    '#sec-lead-label': 'sec-lead-label', '#sec-lead-title': 'sec-lead-title', '#sec-lead-desc': 'sec-lead-desc',
+    '#leader-role': 'leader-role', '#leader-name': 'leader-name', '#leader-parent': 'leader-parent',
+    '#leader-addr-label': 'leader-addr-label', '#leader-addr-val': 'leader-addr-val',
+    // certificates
+    '#sec-cert-label': 'sec-cert-label', '#sec-cert-title': 'sec-cert-title', '#sec-cert-desc': 'sec-cert-desc',
+    '#cert-a': 'cert-a', '#cert-b': 'cert-b', '#cert-c': 'cert-c', '#cert-d': 'cert-d',
+    // donation
+    '#donate-title': 'donate-title', '#donate-desc': 'donate-desc', '#donate-btn': 'donate-btn',
+    // contact
+    '#sec-cont-label': 'sec-cont-label', '#sec-cont-title': 'sec-cont-title',
+    '#cont-left-h3': 'cont-left-h3',
+    '#cd-phone-label': 'cd-phone-label',
+    '#cd-email-label': 'cd-email-label',
+    '#cd-map-label': 'cd-map-label',
+    '#cd-regoffice-label': 'cd-regoffice-label', '#cd-regoffice-val': 'cd-regoffice-val',
+    '#cd-presaddr-label': 'cd-presaddr-label',   '#cd-presaddr-val': 'cd-presaddr-val',
+    '#cd-reg-label': 'cd-reg-label',   '#cd-reg-val': 'cd-reg-val',
+    '#cd-est-label': 'cd-est-label',   '#cd-est-val': 'cd-est-val',
+    '#cont-right-h3': 'cont-right-h3',
+    '#form-name-lbl': 'form-name-lbl', '#form-email-lbl': 'form-email-lbl',
+    '#form-subj-lbl': 'form-subj-lbl', '#form-msg-lbl': 'form-msg-lbl',
+    '#form-btn': 'form-btn',
+    // footer
+    '#foot-title': 'foot-title', '#foot-desc': 'foot-desc',
+    '#foot-links-h': 'foot-links-h',
+    '#foot-link-about': 'foot-link-about', '#foot-link-miss': 'foot-link-miss',
+    '#foot-link-act': 'foot-link-act',     '#foot-link-lead': 'foot-link-lead',
+    '#foot-link-cert': 'foot-link-cert',   '#foot-link-cont': 'foot-link-cont',
+    '#foot-reg-h': 'foot-reg-h',
+    '#foot-reg-no': 'foot-reg-no', '#foot-reg-act': 'foot-reg-act',
+    '#foot-dist': 'foot-dist', '#foot-state': 'foot-state',
+    '#foot-nature': 'foot-nature', '#foot-est': 'foot-est',
+    '#foot-copy': 'foot-copy', '#foot-motto': 'foot-motto',
+    // whatsapp
+    '#wa-label': 'wa-label', '#wa-sub': 'wa-sub',
+  };
+
+  // Placeholder map for input elements
+  const placeholderMap = {
+    '#form-name-input':  'form-name-ph',
+    '#form-email-input': 'form-email-ph',
+    '#form-subj-sel':    'form-subj-ph',
+    '#form-msg-area':    'form-msg-ph',
+  };
+
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.body.classList.toggle('te-mode', lang === 'te');
+    // Toggle active state on buttons
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-te').classList.toggle('active', lang === 'te');
+
+    // Update all text nodes
+    for (const [selector, key] of Object.entries(keyMap)) {
+      const el = document.querySelector(selector);
+      if (el && translations[key]) {
+        el.innerHTML = translations[key][lang] || translations[key]['en'];
+      }
+    }
+    // Update placeholders
+    for (const [selector, key] of Object.entries(placeholderMap)) {
+      const el = document.querySelector(selector);
+      if (el && translations[key]) {
+        el.placeholder = translations[key][lang] || translations[key]['en'];
+      }
+    }
+    // Save preference
+    localStorage.setItem('msm_lang', lang);
+  }
+
+  // On load, restore saved language
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('msm_lang');
+    if (saved && saved !== 'en') setLang(saved);
+  });
+</script>
+</body>
+</html>
